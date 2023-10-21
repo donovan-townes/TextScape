@@ -1,0 +1,19 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" formControlName="title">
+    </div>
+
+    <div>
+        <label for="content">Content (max 120 characters):</label>
+        <textarea id="content" formControlName="content" rows="4"></textarea>
+        <!-- <div *ngIf="postForm.get('content').hasError('maxlength')">
+            Content exceeds the maximum allowed characters. (120 max)
+        </div>         -->
+    </div>
+
+    <div>
+        <button type="submit" [disabled]="postForm.invalid">Create Post</button>
+    </div>
+
+</form>

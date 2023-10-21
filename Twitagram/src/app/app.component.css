@@ -1,0 +1,16 @@
+h1 {
+    font-size: .75em;    
+    color: rgba(6, 111, 67, 0.932)
+}
+
+h1 a {
+    text-decoration: none;
+    color: rgba(6, 111, 67, 0.932)
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-right: 10px
+}

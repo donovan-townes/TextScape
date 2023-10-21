@@ -1,0 +1,8 @@
+<h3>Login to TextScape</h3>
+<p>Please login to enjoy the TextScape universe</p>
+<form (submit)="onLogin()">
+    <input type="username" [(ngModel)]="user.username" name="username" placeholder="Username" required>
+    <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required>
+    <input type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
+    <input type="submit" value="Login">
+</form>

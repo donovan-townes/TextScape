@@ -1,0 +1,11 @@
+
+<h3>Post Feed</h3>
+<div class = "post-feed"*ngFor="let post of posts">
+    <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
+    <p>{{ post.content }}</p>
+    <div class ="post-link">
+    <a [routerLink]="['/posts/like']">Like</a>
+    <a [routerLink]="['/posts/comment']">Comment</a>
+    <a [routerLink]="['/posts/share']">Share</a>
+    </div>
+</div>

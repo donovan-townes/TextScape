@@ -1,0 +1,25 @@
+.post-feed {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.post-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+    align-items: center;
+    width: 100%;
+
+}
