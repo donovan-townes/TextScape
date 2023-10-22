@@ -15,7 +15,10 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPosts().subscribe(
       (data) => {
-        this.posts = data.results;
+        this.posts = data.results.map((post: any) => {
+          post.comments = post.comments || [];
+          return post;
+        });
       },
       (error) => {
         console.error('Error fetching posts:', error);
@@ -34,4 +37,19 @@ export class FeedComponent implements OnInit {
       }
     );
   }
+
+  addComment(post: any): void {
+    this.postService.createComment(post.id, {content: post.newComment}).subscribe(
+      (data) => {
+        console.log('Comment added successfully:', data);
+        post.comments.push(data); // Push the new comment to the list of comments
+        post.newComment = ''; // Clear the comment box
+        this.ngOnInit(); // Refresh the page
+      },
+      (error) => {
+        console.error('Error adding comment:', error);
+      }
+    );
+  }
+
 }

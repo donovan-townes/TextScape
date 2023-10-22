@@ -30,10 +30,20 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    post = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
 class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Post
-        fields = ('id', 'user', 'title', 'content', 'date_posted', 'likes_count')
+        fields = ('id', 'user', 'title', 'content', 'date_posted', 'likes_count', 'comments')
 
 
 class LikeSerializer(serializers.ModelSerializer):
@@ -41,7 +51,3 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = '__all__'
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields =('id', 'user', 'post', 'parent_comment', 'content', 'date_posted')

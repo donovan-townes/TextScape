@@ -7,8 +7,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
-from .models import Post, Like
-from .serializers import UserRegistrationSerializer, PostSerializer
+from .models import Post, Like, Comment
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer
 
 
 User = get_user_model()
@@ -63,3 +63,27 @@ class PostViewSet(viewsets.ModelViewSet):
                 return Response({'message': 'Post unliked!'}, status=status.HTTP_200_OK)
         except Post.DoesNotExist:
             return Response({'message': 'Post does not exist!'}, status=status.HTTP_404_NOT_FOUND)
+
+    @action(detail=True, methods=['GET'], url_path='comments', url_name='post_comments')
+    def post_comments(self, request, pk=None):
+        post = self.get_object()
+        comments = Comment.objects.filter(post=post)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=True, methods=['POST'], url_path='comment', url_name='comment_post')
+    def comment_post(self, request, pk=None):
+        post = self.get_object()
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, post=post)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    #optional
+    @action(detail=True, methods=['GET'], url_path='comment/(?P<comment_id>\d+)', url_name='nested_comments')
+    def nested_comments(self, request, pk=None, comment_id=None):
+        parent_comment = Comment.objects.get(id=comment_id)
+        nested_comments = Comment.objects.filter(parent_comment=parent_comment)
+        serializer = CommentSerializer(nested_comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

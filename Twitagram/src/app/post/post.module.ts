@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PostRoutingModule } from './post-routing/post-routing.module';
 import { CommentComponent } from './comment/comment.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CommentComponent } from './comment/comment.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    PostRoutingModule
+    PostRoutingModule,
+    FormsModule
   ]
 })
 export class PostModule { }

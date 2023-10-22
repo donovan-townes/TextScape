@@ -10,8 +10,9 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
+  // Post Operations
   getPosts(): Observable<any> {
-    return this.http.get(`${this.API_URL}/posts/`); // assuming posts/ is endpoint
+    return this.http.get(`${this.API_URL}/posts/`);
   }
 
   getPostDetail(id:number): Observable<any> {
@@ -22,6 +23,7 @@ export class PostService {
     return this.http.post(`${this.API_URL}/posts/`, postData);
   }
 
+  // Like Operations
   likePost(id: number): Observable<any> {
     return this.http.post(`${this.API_URL}/posts/${id}/like/`, {});
   }
@@ -29,4 +31,18 @@ export class PostService {
   unlikePost(id: number): Observable<any> {
     return this.http.delete(`${this.API_URL}/posts/${id}/like/`);
   }
+  // Comment Operations
+  listComments(postId: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/posts/${postId}/comments/`);
+  }
+  
+  createComment(postId: number, commentData: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/posts/${postId}/comment/`, commentData);
+  }
+
+  deleteComment(postId: number, commentId: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/posts/${postId}/comment/${commentId}/`);
+  }
+
+
 }
