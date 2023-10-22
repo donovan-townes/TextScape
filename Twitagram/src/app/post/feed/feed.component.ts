@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 
+
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
@@ -18,6 +19,18 @@ export class FeedComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching posts:', error);
+      }
+    );
+  }
+
+  likeOrUnlikePost(post: any): void {
+    this.postService.likePost(post.id).subscribe(
+      (data) => {
+        console.log('(Like/Unlike) Post operation successful:', data);
+        this.ngOnInit();
+    },
+      (error) => {
+        console.error('There was an error liking the post:', error);
       }
     );
   }

@@ -6,12 +6,14 @@ import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PostRoutingModule } from './post-routing/post-routing.module';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
     FeedComponent,
     PostDetailComponent,
-    CreateComponent
+    CreateComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,

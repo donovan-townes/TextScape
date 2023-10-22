@@ -4,8 +4,11 @@
     <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
     <p>{{ post.content }}</p>
     <div class ="post-link">
-    <a [routerLink]="['/posts/like']">Like</a>
+    <button (click)="likeOrUnlikePost(post)">Like</button>
     <a [routerLink]="['/posts/comment']">Comment</a>
     <a [routerLink]="['/posts/share']">Share</a>
+</div>
+    <div class="like_count">
+        <p>Likes: {{ post.likes_count }}</p>
     </div>
 </div>
