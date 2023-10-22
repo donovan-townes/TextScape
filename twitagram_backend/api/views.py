@@ -1,13 +1,13 @@
 from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
-from .models import Post
+from .models import Post, Like
 from .serializers import UserRegistrationSerializer, PostSerializer
 
 
@@ -29,21 +29,6 @@ class UserRegistrationAPIView(generics.CreateAPIView):
 
         return reponse
 
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_post(request):
-    if request.method == 'POST':
-        print("DJANGO REQUEST DATA (CREATE_POST)",request.data) # DEBUG
-        post_data = request.data
-        post_data['user'] = request.user.id
-        serializer = PostSerializer(data=post_data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -60,3 +45,21 @@ class PostViewSet(viewsets.ModelViewSet):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+    @action(detail=True, methods=['POST'], url_path='like', url_name='like_post')
+    def like_post(self, request, pk=None):
+        try:
+            post = self.get_object()
+            like, created = Like.objects.get_or_create(user=request.user, post=post)
+            if created:
+                post.likes_count += 1
+                post.save()
+                return Response({'message': 'Post liked!'}, status=status.HTTP_201_CREATED)
+            else:
+                post.likes_count = max(0, post.likes_count - 1)
+                post.save()
+                like.delete()
+                return Response({'message': 'Post unliked!'}, status=status.HTTP_200_OK)
+        except Post.DoesNotExist:
+            return Response({'message': 'Post does not exist!'}, status=status.HTTP_404_NOT_FOUND)

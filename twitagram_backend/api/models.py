@@ -12,10 +12,12 @@ class Post(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
+    likes_count = models.PositiveIntegerField(default=0)
 
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     content = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
 
