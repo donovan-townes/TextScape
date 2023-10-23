@@ -14,3 +14,9 @@ nav {
     justify-content: flex-end;
     padding-right: 10px
 }
+
+h2 {
+    font-size: .6em;
+    color: rgba(6, 111, 67, 0.932)
+}
+

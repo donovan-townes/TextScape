@@ -27,6 +27,7 @@ export class PostDetailComponent implements OnInit {
       // Fetch post details using ID
       this.postService.getPostDetail(postId).subscribe(
         (data) => {
+          console.log("POST DETAILS: ", data);
           this.postDetail = data;
         },
         (error) => {
@@ -35,4 +36,29 @@ export class PostDetailComponent implements OnInit {
       );
     }
 
+    addComment(post: any): void {
+      this.postService.createComment(post.id, {content: post.newComment}).subscribe(
+        (data) => {
+          console.log('Comment added successfully:', data);
+          post.comments.push(data); // Push the new comment to the list of comments
+          post.newComment = ''; // Clear the comment box
+          this.ngOnInit(); // Refresh the page
+        },
+        (error) => {
+          console.error('Error adding comment:', error);
+        }
+      );
+    }
+
+    likeOrUnlikePost(post: any): void {
+      this.postService.likePost(post.id).subscribe(
+        (data) => {
+          console.log('(Like/Unlike) Post operation successful:', data);
+          this.ngOnInit();
+      },
+        (error) => {
+          console.error('There was an error liking the post:', error);
+        }
+      );
+    }
 }

@@ -1,32 +1,45 @@
 
 <h3>Post Feed</h3>
-<div class = "post-feed"*ngFor="let post of posts">
-    <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
-    <p>{{ post.content }}</p>
-    <p>{{ post.created_at }}</p>
 
+<!-- Post Feed -->
+<div class = "post-feed"*ngFor="let post of posts">
+    <div class="post-content">
+        <p><strong>@{{ post.user }}:</strong></p>
+        <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+        <p>{{ post.created_at }}</p>
+    </div>
     <!-- Comments -->
-    <div *ngIf="post.comments && post.comments.length">
+    <div class="comment-feed"*ngIf="post.comments && post.comments.length">
         <h4>Comments</h4>
         <div class="comment" *ngFor="let comment of post.comments">
-            <p>{{ comment.user }}: {{ comment.content }}</p>
+            <p><strong>@{{ comment.user }}:</strong> {{ comment.content }}</p>
             <p>{{ comment.created_at }}</p>
         </div>
+        <!-- Comment Form-->
     </div>
-
-    <!-- Comment Form-->
     <div class="coment-form">
-        <textarea [(ngModel)]="post.newComment" placeholder="Add a comment..."></textarea>
-        <button (click)="addComment(post)">Comment</button>
+        <textarea class="comment-box"[(ngModel)]="post.newComment" placeholder="Add a comment..."></textarea>
+        <span class="material-symbols-outlined social-btn" (click)="addComment(post)">
+            send
+            </span>
+        <!-- <button (click)="addComment(post)">Comment</button> -->
     </div>
 
-    <!-- Likes -->
+
+    <!-- Social Buttons -->
     <div class ="post-link">
-    <button (click)="likeOrUnlikePost(post)">Like</button>
-    <a [routerLink]="['/posts/comment']">Comment</a>
-    <a [routerLink]="['/posts/share']">Share</a>
+        <span class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
+            thumb_up
+            </span>
+    <!-- <button (click)="likeOrUnlikePost(post)">Like</button> -->
+    <span class="material-symbols-outlined social-btn">
+        share
+    </span>
+    <span class="material-symbols-outlined social-btn">
+        heart_plus
+    </span>{{ post.likes_count}}
+
+    <!-- <a [routerLink]="['/posts/share']">Share</a> -->
 </div>
-    <div class="like_count">
-        <p>Likes: {{ post.likes_count }}</p>
-    </div>
 </div>

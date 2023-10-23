@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   user = {
     username: '',
-    email: '',
     password: '',
   };
 
@@ -21,6 +20,7 @@ export class LoginComponent {
       (data: any) => {
         console.log(data);
         localStorage.setItem('token', data.access);
+        localStorage.setItem('username', data.username);
         alert('Login Successful - Redirecting to Home!');
         this.router.navigate(['/home']);
       },
@@ -28,7 +28,5 @@ export class LoginComponent {
     );
   };
 
-  onLogOut() {
-    localStorage.removeItem('token')
-  };
+  
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,11 @@ import { PostService } from '../post.service';
 export class FeedComponent implements OnInit {
   posts: any[] = [];
 
-  constructor(private postService: PostService) {}
+
+
+  constructor(private postService: PostService,
+              private router: Router          
+    ) {}
 
   ngOnInit(): void {
     this.postService.getPosts().subscribe(
@@ -21,8 +26,13 @@ export class FeedComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Error fetching posts:', error);
-      }
+        if (error.status === 401) {
+          alert('You must be logged in to view this page.');
+          this.router.navigate(['/login']);
+        } else { 
+          console.error('Error fetching posts:', error);
+        };
+        }
     );
   }
 

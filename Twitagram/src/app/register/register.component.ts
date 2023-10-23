@@ -14,12 +14,14 @@ export class RegisterComponent {
   user = {
     username: '',
     email: '',
-    password: ''
+    password: '',
+    password2: ''
   };
   
   constructor(private apiService: ApiService, private router: Router) { }
   
   onsubmit() {
+    
     this.apiService.register(this.user).subscribe(
       (data: any) => {
         console.log(data);

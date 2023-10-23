@@ -1,10 +1,22 @@
-
-<h1 class="logo"><a routerLink="/home">TextScape</a></h1>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<!--Set the width to match either desktop or mobile device-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<div class="container">
+  <div>
+  <h1 class="logo"><a routerLink="/home">TextScape</a></h1>
+  <h2 class="tagline">A place to share your thoughts</h2>
+  </div>
+  <div class="user-info" *ngIf="authService.isLoggedIn()">
+    <p >@{{ authService.getUser().username }}</p>
+    <img src="/assets/default-1.png" />
+    </div>
+  </div>
 <nav>
   <a routerLink="/posts/feed" routerLinkActive="active">Feed</a>
   <a routerLink="/posts/create" routerLinkActive="active">Create Post</a>
   <a routerLink="/home" routerLinkActive="active">Home</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
-  <a routerLink="/register" routerLinkActive="active">Register</a>
+  <a *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+  <a *ngIf="!authService.isLoggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
+  <a *ngIf="authService.isLoggedIn()" (click)="authService.logOut()">Logout</a>
 </nav>
 <router-outlet></router-outlet>

@@ -18,10 +18,10 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   register(userData: User): any {
-    return this.http.post(`${this.API_URL}/api/token/`, userData);
+    return this.http.post(`${this.API_URL}/api/register/`, userData);
   }
 
-  login(loginData: {email: string, password: string}): any {
+  login(loginData: {username: string, password: string}): any {
     return this.http.post(`${this.API_URL}/api/token/`, loginData);
   }
 }

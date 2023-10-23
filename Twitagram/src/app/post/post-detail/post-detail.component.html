@@ -1,4 +1,41 @@
 <div class ="post-detail">
 <h2>{{ postDetail.title }}</h2>
 <p>{{ postDetail.content }}</p>
+
+<!-- Comments -->
+<div class="comment-feed" *ngIf="postDetail.comments && postDetail.comments.length">
+    <h4>Comments</h4>
+    <div class="comment" *ngFor="let comment of postDetail.comments">
+        <p><strong>@{{ comment.user }}:</strong> {{ comment.content }}</p>
+        <p>{{ comment.created_at }}</p>
+    </div>
+    <!-- Comment Form-->
+    <div class="coment-form">
+        <textarea class="comment-box" [(ngModel)]="postDetail.newComment" placeholder="Add a comment..."></textarea>
+        <span class="material-symbols-outlined social-btn" (click)="addComment(postDetail)">
+            send
+            </span>
+        <!-- <button (click)="addComment(postDetail)">Comment</button> -->
+    </div>
 </div>
+
+<!-- Social Buttons -->
+<div class ="post-link">
+    <span class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(postDetail)">
+        thumb_up
+        </span>
+
+    <!-- <button (click)="likeOrUnlikePost(postDetail)">Like</button> -->
+    <span class="material-symbols-outlined social-btn">
+        share
+    </span>
+    <span class="material-symbols-outlined social-btn">
+        heart_plus
+    </span>{{ postDetail.likes_count}}
+
+    <!-- <a [routerLink]="['/posts/share']">Share</a> -->
+
+</div>
+
+</div>
+```

@@ -33,8 +33,14 @@ export class CreateComponent implements OnInit {
           this.router.navigate(['/posts/feed']) // redirect to posts/feed
         },
         (error) => {
+          if (error.status === 401) {
+            alert('You must be logged in to create a post! Redirecting to login');
+            this.router.navigate(['/login']);
+          }
+          else {
           console.error('There was an error while creating the post', error)
         }
+      }
       )
       // send data to backend
     }

@@ -41,3 +41,31 @@ nav a.active {
     
     cursor: default;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.user-info {
+    background-color: #6d4caf;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 15px;
+    width: auto;
+    align-items: center;
+    padding: 10px;
+    margin: 0px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.user-info img{
+    height: 50px;
+    /* width: 20%; */
+    /* height: auto; */
+}
