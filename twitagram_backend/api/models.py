@@ -17,6 +17,9 @@ class Post(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     likes_count = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return self.username
+
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

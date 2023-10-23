@@ -1,20 +1,50 @@
 from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from .models import Post, Like, Comment
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer
 
 
 User = get_user_model()
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        print("REQUEST DATA",request.data)
+        return super().post(request, *args, **kwargs)
+
+
+    # @classmethod
+    # def get_token(cls, user):
+    #     print("GET TOKEN CALLED")
+    #     token = super().get_token(user)
+        
+
+    #     # Add custom claims
+    #     token['username'] = user.username
+    #     return token
+    
+
+    # def validate(self, attrs):
+    #     print("VALIDATE CUSTOM TOKEN VIEW CALLED")
+    #     data = super().validate(attrs)
+        
+    #     # Modify the response data to include username
+    #     data.update({'username': self.user.username})
+    #     return data
+    
 
 class UserRegistrationAPIView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
 
@@ -33,18 +63,20 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
-    print("POST VIEWSET")
 
-    def create(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            print("DJANGO REQUEST DATA (CREATE_POST)",request.data) # DEBUG
-            post_data = request.data
-            post_data['user'] = request.user.id
-            serializer = PostSerializer(data=post_data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    # def create(self, request, *args, **kwargs):
+    #     if request.method == 'POST':
+    #         print("DJANGO REQUEST DATA (CREATE_POST)",request.data) # DEBUG
+    #         post_data = request.data
+    #         post_data['user'] = request.user.id
+    #         serializer = PostSerializer(data=post_data)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
     @action(detail=True, methods=['POST'], url_path='like', url_name='like_post')

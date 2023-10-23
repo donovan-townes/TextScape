@@ -62,4 +62,17 @@ export class FeedComponent implements OnInit {
     );
   }
 
+  updatePost(post: any): void {
+    this.postService.updatePost(post.id, {content: post.content}).subscribe(
+      (data) => {
+        console.log('Post updated successfully:', data);
+        this.ngOnInit(); // Refresh the page
+      },
+      (error) => {
+        console.error('Error updating post:', error);
+      }
+    );
+  }
+
+
 }

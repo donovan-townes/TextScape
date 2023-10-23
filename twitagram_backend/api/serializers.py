@@ -2,6 +2,16 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Post, Like, Comment
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data.update({'username': self.user.username})
+        print("DATA", data)
+        return data
+
 
 User = get_user_model()
 
@@ -40,7 +50,15 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
     
+    def create(self, validated_data):
+        print("VALIDATED DATA",validated_data)
+        user = self.context['request'].user
+        validated_data.pop('user', None)
+        post = Post.objects.create(user=user,**validated_data)
+        return post
+
     class Meta:
         model = Post
         fields = ('id', 'user', 'title', 'content', 'date_posted', 'likes_count', 'comments')

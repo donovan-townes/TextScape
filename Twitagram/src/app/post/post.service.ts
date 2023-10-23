@@ -23,6 +23,10 @@ export class PostService {
     return this.http.post(`${this.API_URL}/posts/`, postData);
   }
 
+  updatePost(id: number, postData: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/posts/${id}/`, postData);
+  }
+
   // Like Operations
   likePost(id: number): Observable<any> {
     return this.http.post(`${this.API_URL}/posts/${id}/like/`, {});
