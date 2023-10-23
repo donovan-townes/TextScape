@@ -1,7 +1,11 @@
 <div class ="post-detail">
+<div class="post-content">
+<p><strong>@{{ postDetail.user }}:</strong></p>
 <h2>{{ postDetail.title }}</h2>
 <p>{{ postDetail.content }}</p>
 
+<a [routerLink]="['/posts/feed/edit', postDetail.id]" *ngIf="postDetail.user === authService.getUser().username">Edit</a>
+</div>
 <!-- Comments -->
 <div class="comment-feed" *ngIf="postDetail.comments && postDetail.comments.length">
     <h4>Comments</h4>

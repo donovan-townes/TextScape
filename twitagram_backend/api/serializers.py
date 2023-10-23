@@ -9,7 +9,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         data.update({'username': self.user.username})
-        print("DATA", data)
         return data
 
 
@@ -53,7 +52,6 @@ class PostSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     
     def create(self, validated_data):
-        print("VALIDATED DATA",validated_data)
         user = self.context['request'].user
         validated_data.pop('user', None)
         post = Post.objects.create(user=user,**validated_data)

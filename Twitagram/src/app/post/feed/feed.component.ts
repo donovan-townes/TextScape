@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -10,14 +11,18 @@ import { Router } from '@angular/router';
 })
 export class FeedComponent implements OnInit {
   posts: any[] = [];
+  currentUser: any;
 
 
 
   constructor(private postService: PostService,
-              private router: Router          
+              private router: Router        ,
+              public authService: AuthService  
     ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.authService.getUser();
+
     this.postService.getPosts().subscribe(
       (data) => {
         this.posts = data.results.map((post: any) => {
@@ -35,6 +40,27 @@ export class FeedComponent implements OnInit {
         }
     );
   }
+
+  deletePost(post: any): void {
+    if (!confirm('Are you sure you want to delete this post?')) {
+      return;
+    }
+    if (!post || !post.id) {
+      console.error('Post ID not provided');
+      return;
+    }
+
+    this.postService.deletePost(post.id).subscribe(
+      (data) => {
+        console.log('Post deleted successfully:', data);
+        this.ngOnInit();
+      },
+      (error) => {
+        console.error('Error deleting post:', error);
+      }
+    );
+  }
+
 
   likeOrUnlikePost(post: any): void {
     this.postService.likePost(post.id).subscribe(
@@ -61,18 +87,5 @@ export class FeedComponent implements OnInit {
       }
     );
   }
-
-  updatePost(post: any): void {
-    this.postService.updatePost(post.id, {content: post.content}).subscribe(
-      (data) => {
-        console.log('Post updated successfully:', data);
-        this.ngOnInit(); // Refresh the page
-      },
-      (error) => {
-        console.error('Error updating post:', error);
-      }
-    );
-  }
-
 
 }

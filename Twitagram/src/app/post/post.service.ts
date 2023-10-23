@@ -27,6 +27,10 @@ export class PostService {
     return this.http.put(`${this.API_URL}/posts/${id}/`, postData);
   }
 
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/posts/${id}/`);
+  }
+
   // Like Operations
   likePost(id: number): Observable<any> {
     return this.http.post(`${this.API_URL}/posts/${id}/like/`, {});

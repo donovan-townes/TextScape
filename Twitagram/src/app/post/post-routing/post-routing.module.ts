@@ -8,7 +8,8 @@ import { CreateComponent } from '../create/create.component';
 const routes: Routes = [
   { path: 'feed', component: FeedComponent },
   { path: `post/:id`, component: PostDetailComponent },
-  { path: 'create', component: CreateComponent }
+  { path: 'create', component: CreateComponent },
+  { path: 'feed/edit/:id', component: CreateComponent }
 ];
 
 

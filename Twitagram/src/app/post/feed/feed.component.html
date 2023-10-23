@@ -4,10 +4,13 @@
 <!-- Post Feed -->
 <div class = "post-feed"*ngFor="let post of posts">
     <div class="post-content">
-        <p><strong>@{{ post.user }}:</strong></p>
+        <p>{{ post.date_posted | date: 'mediumDate' }}
+        <strong>@{{ post.user }}:</strong></p>
         <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
         <p>{{ post.content }}</p>
-        <p>{{ post.created_at }}</p>
+        <p>{{ post.updated_at }}</p>
+        <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+        <button (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</button>
     </div>
     <!-- Comments -->
     <div class="comment-feed"*ngIf="post.comments && post.comments.length">
