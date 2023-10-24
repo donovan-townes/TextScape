@@ -1,4 +1,6 @@
-# TextScape - Angular/Django Social Media App
+# TextScape
+
+## Angular/Django Social Media App
 
 A social media platform for users to share their thoughts and ideas with the world. Users can create an account, post their thoughts, and interact with other users by liking and commenting on their posts.
 
