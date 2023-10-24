@@ -101,4 +101,12 @@ export class FeedComponent implements OnInit {
     );
   }
 
+  isFollowing(user: any): boolean {
+    if (!this.currentUser || !this.currentUser.following) {
+    
+      return false;
+    }
+    return this.currentUser.following.includes(user.id);
+  }
+
 }

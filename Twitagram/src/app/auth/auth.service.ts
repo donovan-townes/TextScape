@@ -14,7 +14,6 @@ export class AuthService {
         const username = localStorage.getItem('username');
         if (!username) return null;
         return {username: username};
-        // Decode token to get user deta
         }
     
 
@@ -28,6 +27,7 @@ export class AuthService {
 
     logOut() {
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         this.router.navigate(['/login']);
     };
 }
