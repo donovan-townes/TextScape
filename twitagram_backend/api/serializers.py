@@ -67,3 +67,15 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = '__all__'
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'bio', 'date_joined', 'groups', 'user_permissions')
+
+class FollowerSerializer(serializers.ModelSerializer):
+    follower = serializers.StringRelatedField(read_only=True)
+    following = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('follower', 'following', 'date_followed')

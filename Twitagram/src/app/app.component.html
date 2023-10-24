@@ -17,6 +17,6 @@
   <a routerLink="/home" routerLinkActive="active">Home</a>
   <a *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
   <a *ngIf="!authService.isLoggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
-  <a *ngIf="authService.isLoggedIn()" (click)="authService.logOut()">Logout</a>
+  <a *ngIf="authService.isLoggedIn()" (click)="authService.logOut()" style="cursor: pointer;">Logout</a>
 </nav>
 <router-outlet></router-outlet>

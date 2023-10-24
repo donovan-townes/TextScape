@@ -9,26 +9,57 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
-from .models import Post, Like, Comment
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer
+from .models import Post, Like, Comment, Follower
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer
 
 
 User = get_user_model()
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = FollowerSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'username'
+
+    @action(detail=True, methods=['POST'], url_path='follow', url_name='follow_user')
+    def follow(self, request, pk=None, *args, **kwargs):
+        print("follow_user")
+        current_user = request.user
+        print("CURRENT USER: ",current_user)
+        user_to_follow = self.get_object()
+        print("USER TO FOLLOW: ",user_to_follow)
+
+        if user_to_follow == current_user:
+            return Response({'message': 'You cannot follow yourself!'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            existing_follow = Follower.objects.get(follower=current_user, following=user_to_follow)
+        except Follower.DoesNotExist:
+            existing_follow = None
+        
+        if existing_follow:
+            existing_follow.delete()
+            return Response({'message': 'User unfollowed!'}, status=status.HTTP_200_OK)
+        
+        Follower.objects.create(follower=current_user, following=user_to_follow)
+        return Response({'message': 'User followed!'}, status=status.HTTP_201_CREATED)
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
- 
+
 
 class UserRegistrationAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
 
-    def create(self,request,*args,**kwargs):
-        reponse = super().create(request,*args,**kwargs)
+    def create(self, request, *args, **kwargs):
+        reponse = super().create(request, *args, **kwargs)
         user = User.objects.get(email=request.data['email'])
 
         refresh = RefreshToken.for_user(user)
@@ -37,6 +68,7 @@ class UserRegistrationAPIView(generics.CreateAPIView):
         reponse.data['access_token'] = access_token
 
         return reponse
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -72,7 +104,8 @@ class PostViewSet(viewsets.ModelViewSet):
     def like_post(self, request, pk=None):
         try:
             post = self.get_object()
-            like, created = Like.objects.get_or_create(user=request.user, post=post)
+            like, created = Like.objects.get_or_create(
+                user=request.user, post=post)
             if created:
                 post.likes_count += 1
                 post.save()
@@ -92,7 +125,7 @@ class PostViewSet(viewsets.ModelViewSet):
         comments = Comment.objects.filter(post=post)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     @action(detail=True, methods=['POST'], url_path='comment', url_name='comment_post')
     def comment_post(self, request, pk=None):
         post = self.get_object()
@@ -101,8 +134,8 @@ class PostViewSet(viewsets.ModelViewSet):
             serializer.save(user=request.user, post=post)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    #optional method to get nested comments
+
+    # optional method to get nested comments
     @action(detail=True, methods=['GET'], url_path='comment/(?P<comment_id>\d+)', url_name='nested_comments')
     def nested_comments(self, request, pk=None, comment_id=None):
         parent_comment = Comment.objects.get(id=comment_id)

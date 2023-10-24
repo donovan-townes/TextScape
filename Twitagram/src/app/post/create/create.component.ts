@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Input } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CreateComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private postService: PostService,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              public authService: AuthService
               ) {
 
     this.postForm = this.fb.group({
@@ -66,6 +68,7 @@ export class CreateComponent implements OnInit {
         (error) => {
           if (error.status === 401) {
             alert('You must be logged in to create a post! Redirecting to login');
+            this.authService.logOut();
             this.router.navigate(['/login']);
           }
           else {

@@ -1,12 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --color-50: #ecfdf5;
+    --color-100: #d1fae5;
+    --color-200: #a7f3d0;
+    --color-300: #6ee7b7;
+    --color-400: #34d399;
+    --color-500: #10b981;
+    --color-600: #059669;
+    --color-700: #047857;
+    --color-800: #065f46;
+    --color-900: #064e3b;
+    --color-950: #022c22;
+    background-color: var(--color-50);
+  }
+  
+
 nav {
-    background-color: #333;
+    background-color: var(--color-900);
     overflow: hidden;
 }
 
 nav a {
     float: left;
-    color: #f2f2f2;
+    color: var(--color-100);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -15,14 +31,14 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: var(--color-800);
+    color: var(--color-950);
     transition: all 0.5s ease;
 }
 
 nav a.active {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--color-950);
+    color: var(--color-50);
 }
 
 .logo a {
@@ -51,7 +67,7 @@ nav a.active {
 }
 
 .user-info {
-    background-color: #6d4caf;
+    background-color: var(--color-300);
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

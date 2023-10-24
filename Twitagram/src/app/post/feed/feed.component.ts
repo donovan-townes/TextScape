@@ -33,7 +33,8 @@ export class FeedComponent implements OnInit {
       (error) => {
         if (error.status === 401) {
           alert('You must be logged in to view this page.');
-          this.router.navigate(['/login']);
+          this.authService.logOut();
+          // this.router.navigate(['/login']);
         } else { 
           console.error('Error fetching posts:', error);
         };
@@ -84,6 +85,18 @@ export class FeedComponent implements OnInit {
       },
       (error) => {
         console.error('Error adding comment:', error);
+      }
+    );
+  }
+
+  followOrUnfollowUser(post: any): void {
+    this.postService.followUser(post).subscribe(
+      (data) => {
+        console.log('(Un)Follow operation successful:', data);
+        this.ngOnInit();
+    },
+      (error) => {
+        console.error('There was an error following the user:', error);
       }
     );
   }

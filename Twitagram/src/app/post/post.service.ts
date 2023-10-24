@@ -52,5 +52,18 @@ export class PostService {
     return this.http.delete(`${this.API_URL}/posts/${postId}/comment/${commentId}/`);
   }
 
+  // User Operations
+  getUserDetail(username: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/users/${username}/`);
+  }
+
+  followUser(username: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/users/${username}/follow/`, {});
+  }
+
+  unfollowUser(username: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/users/${username}/follow/`);
+  }
+
 
 }

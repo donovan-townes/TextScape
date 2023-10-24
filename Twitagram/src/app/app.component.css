@@ -1,11 +1,19 @@
 h1 {
     font-size: .75em;    
-    color: rgba(6, 111, 67, 0.932)
+    color: var(--color-950)
 }
 
 h1 a {
     text-decoration: none;
-    color: rgba(6, 111, 67, 0.932)
+    color: var(--color-950);
+    transition: all 0.2s ease-in-out;
+}
+
+h1 a:hover {
+    color: var(--color-800);
+    cursor: pointer;
+    font-size: 1.5em;
+
 }
 
 nav {
@@ -17,6 +25,6 @@ nav {
 
 h2 {
     font-size: .6em;
-    color: rgba(6, 111, 67, 0.932)
+    color: var(--color-950);
 }
 

@@ -1,3 +1,11 @@
+h1 {
+    font-size: 1.5em;
+    color: var(--color-950);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 div {
     margin: 0 auto;
     padding: 0 20px;
@@ -5,4 +13,39 @@ div {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    color: var(--color-950)
+}
+
+input {
+    width: 100%;
+    /* padding: 12px 20px; */
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    background-color: var(--color-100);
+}
+
+
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    background-color: var(--color-100);
+
 }

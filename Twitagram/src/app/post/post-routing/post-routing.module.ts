@@ -5,6 +5,7 @@ import { FeedComponent } from '../feed/feed.component';
 import { PostDetailComponent } from '../post-detail/post-detail.component';
 import { CreateComponent } from '../create/create.component';
 
+
 const routes: Routes = [
   { path: 'feed', component: FeedComponent },
   { path: `post/:id`, component: PostDetailComponent },
