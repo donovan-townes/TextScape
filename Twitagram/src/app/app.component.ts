@@ -7,7 +7,7 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Twitagram';
+  title = 'TextScape';
 
   constructor(public authService: AuthService) {}
 }

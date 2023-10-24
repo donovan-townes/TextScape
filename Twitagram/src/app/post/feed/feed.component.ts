@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class FeedComponent implements OnInit {
   posts: any[] = [];
   currentUser: any;
-
+  following: any[] = [];
 
 
   constructor(private postService: PostService,
@@ -22,6 +22,7 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.authService.getUser();
+    this.fetchFollowers();
 
     this.postService.getPosts().subscribe(
       (data) => {
@@ -101,12 +102,23 @@ export class FeedComponent implements OnInit {
     );
   }
 
+  fetchFollowers(): void {
+    this.postService.followers(this.currentUser?.username).subscribe(
+      (data) => {
+        // console.log('Followers fetched successfully:', data);
+        this.following = data;
+      },
+      (error) => {
+        console.error('Error fetching followers:', error);
+      }
+    );
+  }
+
   isFollowing(user: any): boolean {
-    if (!this.currentUser || !this.currentUser.following) {
-    
+    if (!this.currentUser.username || !this.following) {
       return false;
     }
-    return this.currentUser.following.includes(user.id);
+    return this.following.some(follower => follower.username === user);
   }
 
 }

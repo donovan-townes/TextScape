@@ -15,6 +15,27 @@
 
 }
 
+.post-user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+    background-color: var(--color-300);
+    border-radius: 5px;
+}
+
+.follow-btn {
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    transition: all 0.2s ease-in-out;
+}
+
+.follow-btn:hover {
+    transform: scale(1.1);
+}
+
 .post-content {
     display: flex;
     flex-direction: column;
@@ -65,7 +86,8 @@
 }
 
 .social-btn {
-    margin: 10px 0 10px 0;
+    display: inline;
+    /* margin: 10px 0 10px 0; */
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     align-items: center;

@@ -4,13 +4,15 @@
 <!-- Post Feed -->
 <div class = "post-feed"*ngFor="let post of posts">
     <div class="post-content">
-        <p>{{ post.date_posted | date: 'mediumDate' }}
-        <strong>@{{ post.user }}:</strong>
-        <span class="material-symbols-outlined social-btn" 
-        *ngIf="post.user !== authService.getUser().username"    
-        (click)="followOrUnfollowUser(post.user)">
-            {{ isFollowing(post.user) ? 'person_off' : 'person_add' }}
-        </span></p>
+        <div class="post-user-info">
+            <p>{{ post.date_posted | date: 'mediumDate' }}
+            <strong>@{{ post.user }}:</strong></p>
+            <span class="material-symbols-outlined follow-btn" 
+            *ngIf="post.user !== authService.getUser().username"    
+            (click)="followOrUnfollowUser(post.user)">
+                {{ isFollowing(post.user) ? 'person_off' : 'person_add' }}
+            </span>
+        </div>    
         <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
         <p>{{ post.content }}</p>
         <div>

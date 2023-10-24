@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from .models import Post, Like, Comment, Follower
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer
 
 
 User = get_user_model()
@@ -24,11 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['POST'], url_path='follow', url_name='follow_user')
     def follow(self, request, pk=None, *args, **kwargs):
-        print("follow_user")
         current_user = request.user
-        print("CURRENT USER: ",current_user)
         user_to_follow = self.get_object()
-        print("USER TO FOLLOW: ",user_to_follow)
 
         if user_to_follow == current_user:
             return Response({'message': 'You cannot follow yourself!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -45,6 +42,13 @@ class UserViewSet(viewsets.ModelViewSet):
         Follower.objects.create(follower=current_user, following=user_to_follow)
         return Response({'message': 'User followed!'}, status=status.HTTP_201_CREATED)
 
+    @action(detail=True, methods=['GET'], url_path='followers', url_name='user_followers')
+    def user_followers(self, request, *args, **kwargs):
+        user = self.get_object()
+        followers = [f.following for f in user.following.all()]
+        serializer = UserSerializer(followers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
