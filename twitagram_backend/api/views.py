@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from .models import Post, Like, Comment, Follower
-from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer
+from .serializers import UserRegistrationSerializer, PostSerializer, CommentSerializer, CustomTokenObtainPairSerializer, FollowerSerializer, UserSerializer, UserProfileSerializer
 
 
 User = get_user_model()
@@ -49,6 +49,54 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(followers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+
+    @action(detail=True, methods=['GET', 'POST','PUT'], url_path='profile', url_name='user_profile')
+    def user_profile(self, request, pk=None, *args, **kwargs):
+        user = self.get_object()
+        if request.method == 'PUT': # PUT method
+            serializer = UserProfileSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else: # GET method
+            serializer = UserProfileSerializer(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['GET'], url_path='me', url_name='current_user')
+    def current_user(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)    
+
+    @action(detail=True, methods=['GET'], url_path='following', url_name='user_following')
+    def user_following(self, request, *args, **kwargs):
+        user = self.get_object()
+        following = [f.following for f in user.followers.all()]
+        serializer = UserSerializer(following, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=True, methods=['GET'], url_path='posts', url_name='user_posts')
+    def user_posts(self, request, *args, **kwargs):
+        user = self.get_object()
+        posts = Post.objects.filter(user=user)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=True, methods=['GET'], url_path='feed', url_name='user_feed')
+    def user_feed(self, request, *args, **kwargs):
+        user = self.get_object()
+        following = [f.following for f in user.following.all()]
+        posts = Post.objects.filter(user__in=following)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    @action(detail=True, methods=['GET'], url_path='liked', url_name='user_liked_posts')
+    def user_liked_posts(self, request, *args, **kwargs):
+        user = self.get_object()
+        posts = Post.objects.filter(likes__user=user)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

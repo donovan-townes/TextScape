@@ -1,4 +1,4 @@
-<p>User Profile!</p>
+<div class="profile-container">
 <ng-container *ngIf="!isEditing; else editProfile">
 <img src="{{ userProfile.profile_picture }}" alt="Profile Picture" />
 <h3>{{ userProfile.username }}</h3>
@@ -26,5 +26,5 @@
 
 
 <p>Date Joined: {{ userProfile.date_joined | date: 'mediumDate'}}</p>
-
+</div>
 
