@@ -8,6 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 
@@ -23,7 +26,13 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-    RouterModule
+    RouterModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

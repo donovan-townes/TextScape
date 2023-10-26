@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class PostService {
   private API_URL = `http://localhost:8000/api`; // Django API URL
-
   constructor(private http: HttpClient) { }
 
   // Post Operations

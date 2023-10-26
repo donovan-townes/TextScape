@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'node_modules/ngx-toastr/toastr.css';
+
+
 :root {
     --color-50: #ecfdf5;
     --color-100: #d1fae5;
@@ -12,12 +15,41 @@
     --color-900: #064e3b;
     --color-950: #022c22;
     background-color: var(--color-50);
+    font-family: 'Roboto', sans-serif;
   }
-  
+
+html {
+    position: relative;
+    height: 100%;
+    
+}
+
+body {
+    margin: 0;
+    position: relative;
+    min-height: 100%;
+    background: transparent;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('assets/green_gradient_bg.png') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(5px); /* blur the background image */
+    z-index: -1; /* ensure the background is behind the content */
+}
+
 
 nav {
     background-color: var(--color-900);
     overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
 }
 
 nav a {
@@ -41,47 +73,15 @@ nav a.active {
     color: var(--color-50);
 }
 
-.logo a {
-    font-size: 15px;
-    font-family: 'Pacifico', cursive;
-    /* color: #4CAF50; */
+/* .logo a {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: italic;
     margin: 0;
     padding: 0;
     text-decoration: none;
+    color: var(--color-200);
     transition:all 0.5s ease;
-}
+} */
 
-.logo a:hover {
-    color: #6d4caf;
-    transition: all 0.2s ease;
-    
-    cursor: default;
-}
-
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.user-info {
-    background-color: var(--color-300);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 15px;
-    width: auto;
-    align-items: center;
-    padding: 10px;
-    margin: 0px 0 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-}
-
-.user-info img{
-    height: 50px;
-    /* width: 20%; */
-    /* height: auto; */
-}

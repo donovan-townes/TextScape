@@ -1,12 +1,9 @@
-
-<h3>Post Feed</h3>
-
 <!-- Post Feed -->
 <div class = "post-feed"*ngFor="let post of posts">
     <div class="post-content">
         <div class="post-user-info">
             <p>{{ post.date_posted | date: 'mediumDate' }}
-            <strong>@{{ post.user }}:</strong></p>
+            <a routerLink="/users/{{post.user}}/profile"><strong>@{{ post.user }}:</strong></a></p>
             <span class="material-symbols-outlined follow-btn" 
             *ngIf="post.user !== authService.getUser().username"    
             (click)="followOrUnfollowUser(post.user)">
@@ -47,6 +44,4 @@
         </span>{{ post.likes_count}}
         </div>
     </div>
-
-
 </div>

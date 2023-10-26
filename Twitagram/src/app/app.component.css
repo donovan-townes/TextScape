@@ -1,18 +1,21 @@
 h1 {
     font-size: .75em;    
-    color: var(--color-950)
+    /* color: var(--color-950) */
 }
 
 h1 a {
     text-decoration: none;
     color: var(--color-950);
     transition: all 0.2s ease-in-out;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 h1 a:hover {
-    color: var(--color-800);
+    color: var(--color-300);
     cursor: pointer;
-    font-size: 1.5em;
+    transform: scale(1.1);
 
 }
 
@@ -25,6 +28,62 @@ nav {
 
 h2 {
     font-size: .6em;
-    color: var(--color-950);
+    /* color: var(--color-950); */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--color-100); */
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-container {
+    /* background-color: var(--color-300); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    align-items: center;
+    padding: -10px;
+    margin: 0px 5px 10px 5px;
+}
+
+.user-info {
+    /* background-color: var(--color-300); */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 15px;
+    width: auto;
+    align-items: center;
+    padding: 10px;
+    margin: 0px 5px 10px 0;
+    /* border: 1px solid #ccc; */
+    border-radius: 25px;
+}
+
+.user-info img{
+    height: 50px;
+}
+
+.top-bar-container {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--color-200);
+    align-items: center;
+    width: 100%;
 }
 
