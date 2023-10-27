@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
     FeedComponent,
     PostDetailComponent,
     CreateComponent,
-    CommentComponent
+    CommentComponent,
+    
   ],
   imports: [
     CommonModule,

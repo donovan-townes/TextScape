@@ -13,13 +13,15 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
+import { FollowerFeedComponent } from './follower-feed/follower-feed.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    FollowerFeedComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { AppComponent } from './app.component';
       preventDuplicates: true,
     }),
     BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

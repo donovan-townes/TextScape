@@ -68,4 +68,8 @@ export class PostService {
     return this.http.get(`${this.API_URL}/users/${username}/followers/`);
   }
 
+  getUserFeed(username: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/users/${username}/feed/`);
+  }
+
 }

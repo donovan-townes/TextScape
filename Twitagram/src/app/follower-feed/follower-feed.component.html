@@ -1,0 +1,50 @@
+<!-- Post Feed -->
+<div>
+    <h3>Feed | Followers | Liked</h3>
+</div>
+<div class="post-feed" *ngFor="let post of posts.slice().reverse()">
+    <div class="post-content">
+        <div class="post-user-info">
+            <p>{{ post.date_posted | date: 'mediumDate' }}
+            <a routerLink="/users/{{post.user}}/profile"><strong>@{{ post.user }}:</strong></a></p>
+            <span class="material-symbols-outlined follow-btn" 
+            *ngIf="post.user !== authService.getUser().username"    
+            (click)="followOrUnfollowUser(post.user)">
+                {{ isFollowing(post.user) ? 'person_off' : 'person_add' }}
+            </span>
+        </div>    
+        <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+        <div>
+            <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+            <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
+        </div>
+        <!-- Comments -->
+        <div class="comment-feed"*ngIf="post.comments && post.comments.length">
+            <h4>Comments</h4>
+            <div class="comment" *ngFor="let comment of post.comments">
+                <p><strong>@{{ comment.user }}:</strong> {{ comment.content }}</p>
+                <p>{{ comment.created_at }}</p>
+            </div>
+        </div>
+        <!-- Comment Form-->
+        <div class="coment-form">
+            <textarea class="comment-box"[(ngModel)]="post.newComment" placeholder="Add a comment..."></textarea>
+            <span class="material-symbols-outlined social-btn" (click)="addComment(post)">
+                send
+            </span>
+        </div>
+        <!-- Social Buttons -->
+        <div class ="post-link">
+            <span class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
+                thumb_up
+                </span>
+        <span class="material-symbols-outlined social-btn">
+            share
+        </span>
+        <span class="material-symbols-outlined social-btn" style="cursor:default;">
+            heart_plus
+        </span>{{ post.likes_count}}
+        </div>
+    </div>
+</div>

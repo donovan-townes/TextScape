@@ -21,6 +21,7 @@
 <nav>
   <div class="nav-container">
     <a routerLink="/posts/feed" routerLinkActive="active">Feed</a>
+    <a routerLink ="/users/:username/feed" routerLinkActive="active">Following</a>
     <a routerLink="/posts/create" routerLinkActive="active">Create Post</a>
     <a routerLink="/home" routerLinkActive="active">Home</a>
     <a *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
