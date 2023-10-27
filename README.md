@@ -22,32 +22,14 @@ A social media platform for users to share their thoughts and ideas with the wor
 
 ## Features
 
-### Users
-
-* Users can create an account
-* Users can log in to their account
-* Users can log out of their account
-* Users can view their profile
-* Users can edit their profile
-* Users can delete their profile
-
-### Posts
-
-* Users can create a post
-* Users can view all posts
-* Users can view their posts
-* Users can view posts by other users
-
-### Likes
-
-* Users can like a post
-* Users can unlike a post
-
-### Comments
-
-* Users can comment on a post
-* Users can edit their comments
-* Users can delete their comments
+* **User Authentication**: Secure sign-up and login functionality using Simple JWT.
+* **Create Posts**: Users can share their thoughts with ease.
+* **User Profiles**: Individualized pages that showcase each user's posts and activities.
+* **Follow Mechanism**: Users can follow and unfollow peers.
+* **Feed System**: Displays posts from all users.
+* **Following Feed**: Showcases posts specifically from users that one follows.
+* **Like System**: Users can like and unlike posts.
+* **Commenting**: Users can comment on posts.
 
 ## Getting Started
 
@@ -75,15 +57,18 @@ A social media platform for users to share their thoughts and ideas with the wor
 
 ## Technical Challenges
 
-* Implementing the like feature
-* Implementing the comment feature
-* Implementing the edit profile feature
+* **Adopting TypeScript**: Transitioning and learning a new language added complexity to the development process.
+* **Angular's Framework**: Grasping the optimal usage of Angular components, modules, and services.
+* **Backend Communication**: Establishing a seamless connection between Django backend and Angular frontend. Overcame challenges related to CORS, crafting endpoints, and creating viewsets.
+* **Authentication**: Ensuring secure routes and user validation using Simple JWT.
 
-## Future Features
+## Future Enhancements
 
-* Bookmark posts
-* Search for posts by keyword
-* Share posts
+* Implement a real-time notification system.
+* Introduce a post bookmarking feature.
+* Add search functionality.
+* Enhanced styling options.
+* Integrate user profile images.
 
 ## Created By
 
