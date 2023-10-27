@@ -4,6 +4,8 @@
 
 A social media platform for users to share their thoughts and ideas with the world. Users can create an account, post their thoughts, and interact with other users by liking and commenting on their posts.
 
+![Screenshot Image](screenshots/TextScape_1.png)
+
 ## Technologies Used
 
 ### Front-End
@@ -61,6 +63,14 @@ A social media platform for users to share their thoughts and ideas with the wor
 * **Angular's Framework**: Grasping the optimal usage of Angular components, modules, and services.
 * **Backend Communication**: Establishing a seamless connection between Django backend and Angular frontend. Overcame challenges related to CORS, crafting endpoints, and creating viewsets.
 * **Authentication**: Ensuring secure routes and user validation using Simple JWT.
+
+## Screenshots
+
+![Screenshot Image](screenshots/TextScape_2.png)
+
+![Screenshot Image](screenshots/TextScape_3.png)
+
+![Screenshot Image](screenshots/TextScape_4.png)
 
 ## Future Enhancements
 
