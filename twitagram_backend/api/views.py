@@ -194,3 +194,4 @@ class PostViewSet(viewsets.ModelViewSet):
         nested_comments = Comment.objects.filter(parent_comment=parent_comment)
         serializer = CommentSerializer(nested_comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+

@@ -43,6 +43,4 @@ export class ApiService {
     return this.http.get(`${this.API_URL}/users/me/`);
   }
 
-
-
 }
