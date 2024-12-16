@@ -1,8 +1,8 @@
 <!-- Post Feed -->
 <div>
-    <h3>Feed | Followers | Liked</h3>
+    <h3 class="text-2xl text-emerald-50 text-center">Feed | Followers | Liked</h3>
 </div>
-<div class="post-feed" *ngFor="let post of posts.slice().reverse()">
+<div class="post-feed bg-emerald-900 flex " *ngFor="let post of posts.slice().reverse()">
     <div class="post-content">
         <div class="post-user-info">
             <p>{{ post.date_posted | date: 'mediumDate' }}

@@ -14,15 +14,17 @@ import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 import { FollowerFeedComponent } from './follower-feed/follower-feed.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     HomeComponent,
-    FollowerFeedComponent
-  ],
+    FollowerFeedComponent,
+      NavbarComponent
+   ],
   imports: [
     BrowserModule,
     HttpClientModule,

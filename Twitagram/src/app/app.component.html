@@ -5,30 +5,7 @@
 
 <!--Set the width to match either desktop or mobile device-->
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"><body>
-<div class="top-bar-container">
-  <div class="logo-container">
-  <h1 class="logo"><a routerLink="/home">TextScape</a></h1>
-  <h2 class="tagline">A place to share your thoughts</h2>
-  </div>
-  <div class="user-info" *ngIf="authService.isLoggedIn()"
-  routerLink="/users/{{ authService.getUser().username }}/profile"
-  style="cursor: pointer;"
-  >
-    <p >@{{ authService.getUser().username }}</p>
-    <img src="/assets/default-1.png" />
-    </div>
-  </div>
-<nav>
-  <div class="nav-container">
-    <a routerLink="/posts/feed" routerLinkActive="active">Feed</a>
-    <a routerLink ="/users/:username/feed" routerLinkActive="active">Following</a>
-    <a routerLink="/posts/create" routerLinkActive="active">Create Post</a>
-    <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a *ngIf="!authService.isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
-    <a *ngIf="!authService.isLoggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
-    <a *ngIf="authService.isLoggedIn()" (click)="authService.logOut()" style="cursor: pointer;">Logout</a>
-  </div>
-</nav>
+<app-navbar></app-navbar>
 <div class="main-container">
   <router-outlet></router-outlet>
 </div>

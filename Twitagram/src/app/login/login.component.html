@@ -1,9 +1,47 @@
-<div class="login-container">
-<h3>Login to TextScape</h3>
-    <p>Please login to enjoy the TextScape universe</p>
-    <form (submit)="onLogin()">
-        <input type="username" [(ngModel)]="user.username" name="username" placeholder="Username" required>
-        <input type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
-        <button type="submit" value="Login">Login</button>
-    </form>
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-white">
+  <body class="h-full">
+  ```
+-->
+<div class=" login-container bg-black/30 h-screen flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class= "bg-emerald-100 pt-10 rounded-tr-2xl  sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=emerald&shade=600" alt="Your Company">
+      <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-emerald-900">Login to TextScape</h2>
     </div>
+  
+    <div class="bg-emerald-100 rounded-bl-2xl p-12 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="bg-emerald-100 space-y-6"(submit) = "onLogin()">
+        <div>
+          <label for="username" class="block text-sm/6 font-medium text-emerald-900">Username</label>
+          <div class="mt-2">
+            <input [(ngModel)]="user.username" type="username" name="username" id="username" autocomplete="username" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
+  
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm/6 font-medium text-emerald-900">Password</label>
+            <div class="text-sm">
+              <a href="#" class="font-semibold text-emerald-600 hover:text-indigo-500">Forgot password?</a>
+            </div>
+          </div>
+          <div class="mt-2">
+            <input [(ngModel)]="user.password" type="password" name="password" id="password" autocomplete="current-password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
+  
+        <div>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+        </div>
+      </form>
+  
+      <p class="mt-10 text-center text-sm/6 text-gray-500">
+        Not a member?
+        <a routerLink="/register" class="font-semibold text-emerald-600 hover:text-indigo-500">Register Today</a>
+      </p>
+    </div>
+  </div>
+  

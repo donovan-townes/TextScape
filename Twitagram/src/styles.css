@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import 'node_modules/ngx-toastr/toastr.css';
-
-
 :root {
     --color-50: #ecfdf5;
     --color-100: #d1fae5;
@@ -14,8 +16,6 @@
     --color-800: #065f46;
     --color-900: #064e3b;
     --color-950: #022c22;
-    background-color: var(--color-50);
-    font-family: 'Roboto', sans-serif;
   }
 
 html {
@@ -45,43 +45,4 @@ body::before {
 }
 
 
-nav {
-    background-color: var(--color-900);
-    overflow: hidden;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-}
-
-nav a {
-    float: left;
-    color: var(--color-100);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    align-self: center;
-}
-
-nav a:hover {
-    background-color: var(--color-800);
-    color: var(--color-950);
-    transition: all 0.5s ease;
-}
-
-nav a.active {
-    background-color: var(--color-950);
-    color: var(--color-50);
-}
-
-/* .logo a {
-    font-size: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    font-style: italic;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: var(--color-200);
-    transition:all 0.5s ease;
-} */
 

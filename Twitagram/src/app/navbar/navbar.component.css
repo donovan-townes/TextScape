@@ -1,0 +1,32 @@
+nav h1 {
+    font-size: .75em;    
+    /* color: var(--color-950) */
+}
+
+nav h1 a {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+nav h1 a:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+
+}
+
+nav h2 {
+    font-size: .7em;
+    /* color: var(--color-950); */
+}
+
+nav {
+    background-color: var(--color-900);
+}
+
+
+nav a:hover {
+    transition: all 0.5s ease;
+}

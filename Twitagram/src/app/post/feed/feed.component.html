@@ -1,50 +1,57 @@
 <!-- Post Feed -->
 <div>
-    <h3>Feed | Followers | Liked</h3>
+    <h3 class="text-2xl text-center font-bold text-emerald-300" >Feed | Followers | Liked</h3>
 </div>
-<div class="post-feed" *ngFor="let post of posts.slice().reverse()">
-    <div class="post-content">
-        <div class="post-user-info">
+<div class="bg-emerald-50 mx-auto w-96 space-y-5 flex border border-emerald-400 shadow-sm rounded-tr-2xl rounded-bl-2xl my-5" *ngFor="let post of posts.slice().reverse()">
+    <div class="post-content w-full">
+        <div class="post-user-info bg-emerald-900 text-emerald-100 p-2 border-b justify-between flex gap-3 rounded-tr-2xl ">
             <p>{{ post.date_posted | date: 'mediumDate' }}
             <a routerLink="/users/{{post.user}}/profile"><strong>@{{ post.user }}:</strong></a></p>
-            <span class="material-symbols-outlined follow-btn" 
-            *ngIf="post.user !== authService.getUser().username"    
-            (click)="followOrUnfollowUser(post.user)">
+            <div>
+                <span class="material-symbols-outlined follow-btn" 
+                *ngIf="post.user !== authService.getUser().username"    
+                (click)="followOrUnfollowUser(post.user)">
                 {{ isFollowing(post.user) ? 'person_off' : 'person_add' }}
             </span>
+        </div>
         </div>    
-        <h2><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
-        <p>{{ post.content }}</p>
-        <div>
-            <a [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
-            <a (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
+        <h2 class="font-bold text-xl text-emerald-800 border-b border-emerald-900 p-2" ><a [routerLink]="['/posts/post', post.id]">{{ post.title }}</a></h2>
+        <p class="p-5 text-emerald-800">"{{ post.content }}"</p>
+        <div class="text-bold text-emerald-700 px-4 pb-2 space-x-4 border-b mb-1 border-emerald-900" >
+            <a class="rounded bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-600 shadow-sm hover:bg-emerald-200" [routerLink]="['edit', post.id]" *ngIf="post.user === authService.getUser().username">Edit</a>
+            <a class="rounded bg-emerald-100 px-2 py-1 text-xs font-semibold text-emerald-600 shadow-sm hover:bg-emerald-200" (click)="deletePost(post)" *ngIf="post.user === authService.getUser().username">Delete</a>
         </div>
         <!-- Comments -->
-        <div class="comment-feed"*ngIf="post.comments && post.comments.length">
-            <h4>Comments</h4>
-            <div class="comment" *ngFor="let comment of post.comments">
-                <p><strong>@{{ comment.user }}:</strong> {{ comment.content }}</p>
-                <p>{{ comment.created_at }}</p>
+        <div class="px-5 text-sm border-b border-emerald-900 mb-4 pb-2"*ngIf="post.comments && post.comments.length">
+            <h4 class="text-xs text-center font-bold text-emerald-900 ">Comments</h4>
+            <div class="flex gap-2 justify-between text-xs p-1 text-emerald-900 " *ngFor="let comment of post.comments">
+                    <p class=""><span class="font-bold">@{{ comment.user }}:</span> {{ comment.content }}</p>
+                    <p>{{ comment.date_posted | date: 'mediumDate' }}</p>
             </div>
         </div>
         <!-- Comment Form-->
-        <div class="coment-form">
-            <textarea class="comment-box"[(ngModel)]="post.newComment" placeholder="Add a comment..."></textarea>
-            <span class="material-symbols-outlined social-btn" (click)="addComment(post)">
+        <div class="relative p-4">
+            <textarea class="block w-full rounded-md bg-emerald-50 px-3 py-1.5 text-base text-emerald-900 outline outline-1 -outline-offset-1 outline-emerald-300 placeholder:text-emerald-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-sm/6" [(ngModel)]="post.newComment" placeholder="Add a comment..."></textarea>
+            <span class="text-emerald-400 absolute bottom-5 cursor-pointer right-5 material-symbols-outlined social-btn" (click)="addComment(post)">
                 send
             </span>
         </div>
         <!-- Social Buttons -->
-        <div class ="post-link">
-            <span class="material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
-                thumb_up
+        <div class ="bg-emerald-900 justify-between text-emerald-100 p-2 rounded-bl-2xl flex gap-2 ">
+            <div class="space-x-2">
+
+                <span class="cursor-pointer material-symbols-outlined social-btn" (click)="likeOrUnlikePost(post)">
+                    thumb_up
                 </span>
-        <span class="material-symbols-outlined social-btn">
-            share
-        </span>
-        <span class="material-symbols-outlined social-btn" style="cursor:default;">
-            heart_plus
-        </span>{{ post.likes_count}}
+                <span class="cursor-pointer material-symbols-outlined social-btn">
+                    share
+                </span>
+            </div>
+        <div>
+            <span class="text-emerald-200 material-symbols-outlined social-btn" style="cursor:default;">
+                heart_plus
+            </span><span class="text-xs ">{{ post.likes_count}}</span>
+        </div>
         </div>
     </div>
 </div>
