@@ -24,6 +24,10 @@ export class FollowerFeedComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.authService.getUser();
     console.log(this.currentUser.username);
+    this.router.navigate([`users/${this.currentUser.username}/feed`], {
+      replaceUrl: true
+    })
+    
     this.fetchFollowers();
     this.postService.getUserFeed(this.currentUser.username).subscribe(
       (data) => {

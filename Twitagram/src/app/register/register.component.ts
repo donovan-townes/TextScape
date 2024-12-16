@@ -33,7 +33,7 @@ export class RegisterComponent {
         if (error.status === 400 && error.error.email) {
           alert('Error: ' + error.error.email[0]); // Example error msg
         } else {
-          alert('An error occurred. Please try again.');
+          alert(`An error occurred. Please try again. ERROR: ${error}`);
         }
       }
     );

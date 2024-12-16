@@ -24,7 +24,7 @@ export class LoginComponent {
         localStorage.setItem('username', data.username);
         this.toastr.success('Login Successful - Redirecting to Home!');
         // alert('Login Successful - Redirecting to Home!');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/posts/feed']);
       },
       (error: any) => console.error(error)
     );
